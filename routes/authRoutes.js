@@ -24,4 +24,13 @@ module.exports = app => {
   app.get("/api/current_user", (req, res) => {
     res.send(req.user);
   });
+
+  app.post(
+    "/auth/email/callback",
+    passport.authenticate("local", {
+      successRedirect: "/buckets",
+      failureRedirect: "/auth/email",
+      failureFlash: true,
+    })
+  );
 };

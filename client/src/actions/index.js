@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER, FETCH_BUCKETS } from "./types";
+import { FETCH_USER, FETCH_BUCKETS, SUBMIT_LOGIN } from "./types";
 
 export const fetchUser = () => async dispatch => {
   console.log("fetchUser invoked");
@@ -28,4 +28,9 @@ export const submitBucket = (values, history) => async dispatch => {
 export const fetchBuckets = () => async dispatch => {
   const res = await axios.get("/api/buckets");
   dispatch({ type: FETCH_BUCKETS, payload: res.data });
+};
+
+export const submitLogin = (values, history) => async dispatch => {
+  const res = await axios.post("/auth/email/callback", values);
+  dispatch({ type: SUBMIT_LOGIN, payload: res.data });
 };
