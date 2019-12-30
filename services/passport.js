@@ -45,13 +45,13 @@ passport.use(
       if (err) {
         return done(err);
       }
-      if (!existingUser) {
+      if (!user) {
         return done(null, false, { message: "Incorrect email." });
       }
-      if (!existingUser.validPassword(password)) {
+      if (!user.validPassword(password)) {
         return done(null, false, { message: "Incorrect password." });
       }
-      if (existingUser) {
+      if (user) {
         return done(null, existingUser);
       }
       user = new User({

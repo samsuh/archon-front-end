@@ -11,8 +11,9 @@ class Registration extends Component {
       <div>
         Registration page showing
         <LoginForm
-          onSubmitLogin={values =>
-            console.log("values from registrationbutton: ", values)
+          submitLogin={
+            // values => console.log("values from registrationbutton: ", values)
+            values => actions.submitLogin(values)
           }
           // onLoginSubmit={(props, values) =>
           //   console.log(

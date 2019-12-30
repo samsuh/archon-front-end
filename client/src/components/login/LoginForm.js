@@ -33,10 +33,16 @@ class LoginForm extends Component {
           onSubmit={this.props.handleSubmit(values => this.props.onLoginSubmit)}
         > */}
         {/* <form onSubmit={submitLogin(formValues)}> */}
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form
+          onSubmit={this.props.handleSubmit(values =>
+            // console.log("values from handleSubmit's onSubmit: ", values)
+            //this is where the values object are passed to the /auth/email/callback via express route handler
+            this.props.submitLogin(values)
+          )}
+        >
           {/* <form onSubmit={this.props.handleSubmit}> */}
           {this.renderFields()}
-          <Link to="/auth/email/callback" className="grey btn-flat white-text">
+          <Link to="/auth/email" className="grey btn-flat white-text">
             Cancel
           </Link>
           <button type="submit" className="red btn-flat right white-text">
