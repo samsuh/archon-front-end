@@ -1,5 +1,19 @@
 const passport = require("passport");
 const User = require("../models/User");
+const jwt = require("jwt-simple");
+const config = require("../config/keys.js");
+const passportService = require("../services/passport");
+
+//jwt-login check middleware
+const requireAuth = passport.authenticate("jwt", { session: false });
+
+//for jwt auth, take a user's secret and encode it
+function tokenForUser(user) {
+  const timestamp = Date.now();
+  //sub is subject, who this token about/who does it belong to?
+  //iat is issued-at-time
+  return jwt.encode({ sub: user.id, iat: timestamp }, config.jwtSecret);
+}
 
 module.exports = app => {
   app.get(
@@ -57,7 +71,7 @@ module.exports = app => {
         }
 
         // step 4: respond to request indicating the user was created.
-        res.json({ success: true });
+        res.json({ token: tokenForUser(user) });
       });
     });
 
@@ -81,4 +95,9 @@ module.exports = app => {
   //     failureFlash: true,
   //   })
   // );
+
+  //dummy route to test jwt requireAuth
+  app.get("/testRoute", requireAuth, function(req, res) {
+    res.send({ hi: "there" });
+  });
 };

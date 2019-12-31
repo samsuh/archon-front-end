@@ -2,9 +2,44 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
+//jwt version uses
+//const config = require('../config')
 const keys = require("../config/keys");
 
+//jwt-login version uses
+//const User = require('../models/user')
 const User = mongoose.model("users");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+
+//JWT Strategy: setup options; tell JwtStrategy where to look to find the key
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+  secretOrKey: keys.jwtSecret,
+};
+//JWT Strategy: Create JWT Strategy
+//function gets called whenever user tries to login using JWT or when we need to authenticate user with JWT
+//function's payload is the {sub, iat} from the token
+const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
+  // see if the user id in payload exists in our db
+  User.findById(payload.sub, function(err, user) {
+    //if search failed; db down or otherwise never got to check if user exists
+    if (err) {
+      return done(err, false);
+    }
+
+    //if exists, call 'done' with that user; null means there was no error when performing the search.
+    //otherwise, call 'done' without a user object. 'this user is not authenticated'
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, false);
+    }
+  });
+});
+
+//Tell passport to use jwtLogin strategy from above.
+passport.use(jwtLogin);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -39,28 +74,28 @@ passport.use(
   )
 );
 
-passport.use(
-  new LocalStrategy(async (email, password, done) => {
-    const existingUser = await User.findOne({ email: email }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: "Incorrect email." });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: "Incorrect password." });
-      }
-      if (user) {
-        return done(null, existingUser);
-      }
-      user = new User({
-        email: email,
-        password: password,
-        company: company,
-        jobTitle: jobTitle,
-      }).save();
-      done(null, user);
-    });
-  })
-);
+// passport.use(
+//   new LocalStrategy(async (email, password, done) => {
+//     const existingUser = await User.findOne({ email: email }, (err, user) => {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!user) {
+//         return done(null, false, { message: "Incorrect email." });
+//       }
+//       if (!user.validPassword(password)) {
+//         return done(null, false, { message: "Incorrect password." });
+//       }
+//       if (user) {
+//         return done(null, existingUser);
+//       }
+//       user = new User({
+//         email: email,
+//         password: password,
+//         company: company,
+//         jobTitle: jobTitle,
+//       }).save();
+//       done(null, user);
+//     });
+//   })
+// );
