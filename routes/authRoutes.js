@@ -6,6 +6,8 @@ const passportService = require("../services/passport");
 
 //jwt-login check middleware
 const requireAuth = passport.authenticate("jwt", { session: false });
+//middleware to check sign in
+const requireSignin = passport.authenticate("local", { session: false });
 
 //for jwt auth, take a user's secret and encode it
 function tokenForUser(user) {
@@ -40,7 +42,7 @@ module.exports = app => {
     res.send(req.user);
   });
 
-  app.post("/auth/email/callback", function(req, res, next) {
+  app.post("/auth/email/signup", function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
     if (!email || !password) {
@@ -88,7 +90,7 @@ module.exports = app => {
 
   // simple passportjs
   //app.post(
-  //   "/auth/email/callback",
+  //   "/auth/email/signup",
   //   passport.authenticate("local", {
   //     successRedirect: "/",
   //     failureRedirect: "/login",
@@ -99,5 +101,10 @@ module.exports = app => {
   //dummy route to test jwt requireAuth
   app.get("/testRoute", requireAuth, function(req, res) {
     res.send({ hi: "there" });
+  });
+
+  app.post("/auth/email/signin", requireSignin, function(req, res, next) {
+    //User has already had email/pw auth'd. need to give them a jwt
+    res.send({ token: tokenForUser(req.user) });
   });
 };

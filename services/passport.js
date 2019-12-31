@@ -27,7 +27,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
     if (err) {
       return done(err, false);
     }
-
     //if exists, call 'done' with that user; null means there was no error when performing the search.
     //otherwise, call 'done' without a user object. 'this user is not authenticated'
     if (user) {
@@ -38,8 +37,39 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   });
 });
 
+//Create local strategy
+const localOptions = { usernameField: "email" };
+const localLogin = new LocalStrategy(localOptions, function(
+  email,
+  password,
+  done
+) {
+  //Verify email/password, call 'done' with the user if correct
+  User.findOne({ email: email }, function(err, user) {
+    if (err) {
+      return done(err);
+    } //if the query never ran for some reason
+    if (!user) {
+      return done(null, false);
+    } //if query ran, but user not found
+    //compare passwords is `password` equal to user.password? comparing bcrypted pw to given pw; encrypt the given pw with same salt to see if it's the same as salted stored pw.
+    user.comparePassword(password, function(err, isMatch) {
+      if (err) {
+        return done(err);
+      }
+      if (!isMatch) {
+        return done(null, false);
+      }
+      return done(null, user);
+    });
+  });
+  //if not correct, call 'done' with false
+});
+
 //Tell passport to use jwtLogin strategy from above.
 passport.use(jwtLogin);
+//Tell passport to use localLogin strategy from above
+passport.use(localLogin);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

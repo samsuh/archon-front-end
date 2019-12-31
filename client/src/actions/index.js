@@ -34,6 +34,6 @@ export const fetchBuckets = () => async dispatch => {
 //bound action creator automatically dispatches anonymous function when called directly 'submitLogin(values)'
 export const submitLogin = values => async dispatch => {
   // console.log("submitLogin from index.js printing values: ", values);
-  const res = await axios.post("/auth/email/callback", values);
+  const res = await axios.post("/auth/email/signup", values);
   dispatch({ type: SUBMIT_LOGIN, payload: values });
 };
