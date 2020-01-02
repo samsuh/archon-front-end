@@ -10,6 +10,8 @@ import Landing from "./Landing";
 import Dashboard from "./Dashboard";
 import Registration from "./login/Registration";
 import Signup from "./login/Signup";
+import Signin from "./login/Signin";
+import Signout from "./login/Signout";
 
 class App extends Component {
   componentDidMount() {
@@ -26,7 +28,9 @@ class App extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/buckets/new" component={BucketNew} />
             <Route exact path="/auth/email" component={Registration} />
-            <Route exact path="/signup" component={Signup} />
+            {/* <Route exact path="/signup" component={Signup} /> */}
+            <Route exact path="/signin" component={Signin} />
+            <Route exact path="/signout" component={Signout} />
             {/* <Route exact path="/feature" component={Feature} /> */}
           </div>
         </BrowserRouter>

@@ -71,3 +71,25 @@ export const signup = (formProps, callback) => async dispatch => {
   }
   //redir to feature page after signing in success
 };
+
+export const signin = (formProps, callback) => async dispatch => {
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/auth/email/signin",
+      formProps
+    );
+  dispatch({ type: AUTH_USER, payload: response.data.token });
+    localStorage.setItem("jwt", response.data.token);
+    callback();
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: "Invalid User Credentials" });
+  }
+};
+export const signout = () => {
+  localStorage.removeItem('jwt')
+
+  return{
+    type:AUTH_USER, 
+    payload: ''
+  }
+}
