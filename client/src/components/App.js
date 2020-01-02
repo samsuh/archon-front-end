@@ -9,9 +9,11 @@ import Landing from "./Landing";
 
 import Dashboard from "./Dashboard";
 import Registration from "./login/Registration";
+import Signup from "./login/Signup";
 
 class App extends Component {
   componentDidMount() {
+    //fetches user from Google OAuth
     this.props.fetchUser();
   }
   render() {
@@ -24,6 +26,8 @@ class App extends Component {
             <Route exact path="/buckets" component={Dashboard} />
             <Route path="/buckets/new" component={BucketNew} />
             <Route exact path="/auth/email" component={Registration} />
+            <Route exact path="/signup" component={Signup} />
+            {/* <Route exact path="/feature" component={Feature} /> */}
           </div>
         </BrowserRouter>
       </div>

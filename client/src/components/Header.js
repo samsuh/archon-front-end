@@ -15,7 +15,19 @@ class Header extends Component {
               <a href="/auth/google">Login With Google</a>
             </li>
             <li>
-              <a href="/auth/email">Email Login</a>
+              <a href="/auth/email">Email Sign Up</a>
+            </li>
+            <li>
+              <a href="/auth/email">Sign In</a>
+            </li>
+            <li>
+              <a href="/auth/signout">Sign Out</a>
+            </li>
+            <li>
+              <a href="/feature">Feature</a>
+            </li>
+            <li>
+              <a href="/signup">TutorialSignUp</a>
             </li>
           </div>
         );

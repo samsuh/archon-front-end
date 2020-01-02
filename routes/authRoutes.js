@@ -45,6 +45,8 @@ module.exports = app => {
   app.post("/auth/email/signup", function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
+    const company = req.body.company;
+    const jobTitle = req.body.jobTitle;
     if (!email || !password) {
       return res
         .status(422)
@@ -65,6 +67,8 @@ module.exports = app => {
       const user = new User({
         email: email,
         password: password,
+        company: company,
+        jobTitle: jobTitle,
       });
 
       user.save(function(err) {

@@ -10,7 +10,8 @@ const bucketEmailTemplate = require("../services/emailTemplates/bucketEmailTempl
 const Bucket = mongoose.model("buckets");
 
 module.exports = app => {
-  app.get("/api/buckets", requireLogin, async (req, res) => {
+  // app.get("/api/buckets", requireLogin, async (req, res) => {
+  app.get("/api/buckets", async (req, res) => {
     const buckets = await Bucket.find({ _user: req.user.id }).select({
       recipients: false,
     });

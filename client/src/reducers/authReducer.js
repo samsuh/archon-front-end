@@ -1,6 +1,16 @@
-import { FETCH_USER, SUBMIT_LOGIN } from "../actions/types";
+import {
+  FETCH_USER,
+  SUBMIT_LOGIN,
+  AUTH_USER,
+  AUTH_ERROR,
+} from "../actions/types";
 
-export default function(state = null, action) {
+const INITIAL_STATE = {
+  authenticated: "",
+  errorMessage: "",
+};
+
+export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_USER:
       return action.payload || false;
@@ -8,6 +18,11 @@ export default function(state = null, action) {
     //this might handle the login form submission and return something from passport. check.
     case SUBMIT_LOGIN:
       return state;
+    //email/pw login
+    case AUTH_USER:
+      return { ...state, authenticated: action.payload };
+    case AUTH_ERROR:
+      return { ...state, errorMessage: action.payload };
     default:
       return state;
   }

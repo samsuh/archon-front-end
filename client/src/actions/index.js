@@ -1,5 +1,11 @@
 import axios from "axios";
-import { FETCH_USER, FETCH_BUCKETS, SUBMIT_LOGIN } from "./types";
+import {
+  FETCH_USER,
+  FETCH_BUCKETS,
+  SUBMIT_LOGIN,
+  AUTH_USER,
+  AUTH_ERROR,
+} from "./types";
 
 export const fetchUser = () => async dispatch => {
   console.log("fetchUser invoked");
@@ -36,4 +42,29 @@ export const submitLogin = values => async dispatch => {
   // console.log("submitLogin from index.js printing values: ", values);
   const res = await axios.post("/auth/email/signup", values);
   dispatch({ type: SUBMIT_LOGIN, payload: values });
+};
+
+//example from advanced email/pw login
+// formProps is coming from the way the <form> is built. check how this changes when using reduxForm
+//reduxThunk allows us to return either an action object {type:'SOMETHING', payload: 'optional something'} or a fx automatically called with the dispatch fx.
+//this lets us dispatch many actions from a single action creator. can also do an async request, wait for promise to resolve, then dispatch again.
+export const signup = (formProps, callback) => async dispatch => {
+  //logic around action creator (making a request, trying to sign up with email/pw, then dispatching action) all occur here.
+  console.log("signup fx from actions", formProps);
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/auth/email/signup",
+      formProps
+    );
+
+    //call dispatch and pass the actions we want to pass to middlwares and reducers
+    dispatch({ type: AUTH_USER, payload: response.data.token });
+    callback();
+    console.log(
+      "callback successfully called from signup function from actions/index.js"
+    );
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: "Email in use" });
+  }
+  //redir to feature page after signing in success
 };
