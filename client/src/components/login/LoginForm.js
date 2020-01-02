@@ -20,7 +20,7 @@ class LoginForm extends Component {
     // console.log(formProps);
     //call the 'signup' action creator. once successful, redirect user.
     this.props.signup(formProps, () => {
-      this.props.history.push("/buckets");
+      this.props.history.push("/dashboard");
       console.log("callback hit from LoginForm signup callback");
     });
   };

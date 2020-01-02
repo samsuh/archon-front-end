@@ -53,7 +53,10 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link to={this.props.auth ? "/buckets" : "/"} className="brand-logo">
+          <Link
+            to={this.props.auth ? "/dashboard" : "/"}
+            className="brand-logo"
+          >
             Archon
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">

@@ -29,7 +29,7 @@ class BucketForm extends Component {
       <div>
         <form onSubmit={this.props.handleSubmit(this.props.onBucketSubmit)}>
           {this.renderFields()}
-          <Link to="/buckets" className="grey btn-flat white-text">
+          <Link to="/dashboard" className="grey btn-flat white-text">
             Cancel
           </Link>
           <button type="submit" className="teal btn-flat right white-text">

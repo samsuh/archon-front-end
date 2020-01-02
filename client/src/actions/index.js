@@ -11,6 +11,7 @@ export const fetchUser = () => async dispatch => {
   console.log("fetchUser invoked");
   const res = await axios.get("/api/current_user");
   dispatch({ type: FETCH_USER, payload: res.data });
+  // dispatch({ type: AUTH_USER, payload: res.data._id });
 };
 
 export const handleToken = token => async dispatch => {
@@ -27,7 +28,7 @@ export const handleToken = token => async dispatch => {
 export const submitBucket = (values, history) => async dispatch => {
   console.log("submitBucket invoked");
   const res = await axios.post("/api/buckets", values);
-  history.push("/buckets");
+  history.push("/dashboard");
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
@@ -59,6 +60,8 @@ export const signup = (formProps, callback) => async dispatch => {
 
     //call dispatch and pass the actions we want to pass to middlwares and reducers
     dispatch({ type: AUTH_USER, payload: response.data.token });
+    //add localStorage to persist JWT. works, but /dashboard is still kicking user to '/'. check and clean up.
+    localStorage.setItem("jwt", response.data.token);
     callback();
     console.log(
       "callback successfully called from signup function from actions/index.js"

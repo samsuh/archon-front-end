@@ -23,7 +23,7 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/buckets" component={Dashboard} />
+            <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/buckets/new" component={BucketNew} />
             <Route exact path="/auth/email" component={Registration} />
             <Route exact path="/signup" component={Signup} />

@@ -29,7 +29,7 @@ module.exports = app => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      res.redirect("/buckets");
+      res.redirect("/dashboard");
     }
   );
 
@@ -83,7 +83,7 @@ module.exports = app => {
 
     // passport.authenticate("local", function(req, res) {
     //     // {
-    //     //   successRedirect: "/buckets",
+    //     //   successRedirect: "/dashboard",
     //     //   failureRedirect: "/auth/potatofail",
     //     //   failureFlash: true,
     //     // }
