@@ -7,4 +7,5 @@ module.exports = {
   stripeSecretKey: process.env.STRIPE_SECRET_KEY,
   sendGridKey: process.env.SEND_GRID_KEY,
   redirectDomain: process.env.REDIRECT_DOMAIN,
+  jwtSecret: process.env.JWT_SECRET,
 };
