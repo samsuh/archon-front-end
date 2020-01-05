@@ -43,10 +43,10 @@ class Header extends Component {
           </li>,
           <li key="4">
             <Link to="/auth/signout">Sign Out</Link>
-            </li>,
-            <li key="5">
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
+          </li>,
+          <li key="5">
+            <Link to="/dashboard">Dashboard</Link>
+          </li>,
         ];
     }
   }
@@ -56,19 +56,36 @@ class Header extends Component {
       this.props.auth
     );
     return (
-      <nav>
-        <div className="nav-wrapper">
-          <Link
-            to={this.props.auth ? "/dashboard" : "/"}
-            className="brand-logo"
-          >
-            Archon
-          </Link>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            {this.renderContent()}
-          </ul>
-        </div>
-      </nav>
+      // <nav>
+      //   <div className="nav-wrapper">
+
+      //     <ul id="nav-mobile" className="right hide-on-med-and-down">
+      //       {this.renderContent()}
+      //     </ul>
+      //   </div>
+      // </nav>
+      <div>
+        <nav>
+          <div className="nav-wrapper">
+            <Link
+              to={this.props.auth ? "/dashboard" : "/"}
+              className="brand-logo"
+            >
+              Archon
+            </Link>
+            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+              <i className="material-icons">menu</i>
+            </a>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              {this.renderContent()}
+            </ul>
+          </div>
+        </nav>
+
+        <ul className="sidenav" id="mobile-demo">
+          {this.renderContent()}
+        </ul>
+      </div>
     );
   }
 }

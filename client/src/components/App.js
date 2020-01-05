@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import M from "materialize-css";
+
 import * as actions from "../actions";
 import BucketNew from "./buckets/BucketNew";
-
 import Header from "./Header";
 import Landing from "./Landing";
-
 import Dashboard from "./Dashboard";
 import Registration from "./login/Registration";
 import Signup from "./login/Signup";
@@ -15,6 +15,7 @@ import Signout from "./login/Signout";
 
 class App extends Component {
   componentDidMount() {
+    M.AutoInit();
     //fetches user from Google OAuth
     this.props.fetchUser();
   }
