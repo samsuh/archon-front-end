@@ -12,6 +12,7 @@ import Registration from "./login/Registration";
 import Signup from "./login/Signup";
 import Signin from "./login/Signin";
 import Signout from "./login/Signout";
+import Footer from "./Footer";
 
 class App extends Component {
   componentDidMount() {
@@ -21,10 +22,12 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <BrowserRouter>
-          <div>
+      <BrowserRouter>
+        <div>
+          <header>
             <Header />
+          </header>
+          <main>
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/buckets/new" component={BucketNew} />
@@ -33,9 +36,12 @@ class App extends Component {
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/signout" component={Signout} />
             {/* <Route exact path="/feature" component={Feature} /> */}
-          </div>
-        </BrowserRouter>
-      </div>
+          </main>
+          <footer>
+            <Footer />
+          </footer>
+        </div>
+      </BrowserRouter>
     );
   }
 }

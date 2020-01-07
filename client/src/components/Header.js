@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Payments from "./Payments";
+import "../styles/main.css";
 
 class Header extends Component {
   renderContent() {
@@ -64,8 +65,8 @@ class Header extends Component {
       //     </ul>
       //   </div>
       // </nav>
-      <div>
-        <nav>
+      <div className="background">
+        <nav className="transparent container">
           <div className="nav-wrapper">
             <Link
               to={this.props.auth ? "/dashboard" : "/"}

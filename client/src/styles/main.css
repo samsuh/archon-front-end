@@ -1,16 +1,56 @@
-.main-header {
+.background {
   background: url(../img/background.jpg);
   background-size: cover;
   background-position: center;
-  min-height: 600px;
   color: #fff;
 }
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
-.main-header .showcase {
-  padding-top: 100px;
+main {
+  flex: 1 0 auto;
+}
+.primary-overlay {
+  background: rgba(31, 63, 167, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.main-header {
+}
+
+.hero {
+  padding: 100px 0;
+}
+.hero .btn {
+  margin: 0 5px;
+}
+
+.section-devs {
+  position: relative;
+  background: url(../img/code.jpg);
+  background-size: cover;
+  background-position: center;
+  border-top: #333 solid 5px;
+  border-bottom: #333 solid 5px;
+  min-height: 180px;
+}
+
+.section-contact {
+  min-height: 200px;
 }
 
 .active-link {
-  color: #d847f1;
+  color: #483bbb;
   font-weight: bold;
+}
+
+.brand-logo {
+  margin-left: 15px;
 }
