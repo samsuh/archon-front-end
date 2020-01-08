@@ -4,7 +4,7 @@
   background-position: center;
   color: #fff;
 }
-body {
+#app-body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;

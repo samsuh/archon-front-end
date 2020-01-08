@@ -14,6 +14,8 @@ import Signin from "./login/Signin";
 import Signout from "./login/Signout";
 import Footer from "./Footer";
 
+import "../styles/main.css";
+
 class App extends Component {
   componentDidMount() {
     M.AutoInit();
@@ -23,7 +25,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <div id="app-body">
           <header>
             <Header />
           </header>
