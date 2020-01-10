@@ -13,7 +13,8 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_USER:
-      return action.payload || false;
+      // return action.payload || false;
+      return { ...state, authenticated: action.payload } || false;
     //this might handle the login form submission and return something from passport. check. clean up later, using AUTH_USER instead.
     case SUBMIT_LOGIN:
       return state;

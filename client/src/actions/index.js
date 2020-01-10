@@ -78,7 +78,7 @@ export const signin = (formProps, callback) => async dispatch => {
       "http://localhost:5000/auth/email/signin",
       formProps
     );
-  dispatch({ type: AUTH_USER, payload: response.data.token });
+    dispatch({ type: AUTH_USER, payload: response.data.token });
     localStorage.setItem("jwt", response.data.token);
     callback();
   } catch (e) {
@@ -86,10 +86,10 @@ export const signin = (formProps, callback) => async dispatch => {
   }
 };
 export const signout = () => {
-  localStorage.removeItem('jwt')
+  localStorage.removeItem("jwt");
 
-  return{
-    type:AUTH_USER, 
-    payload: ''
-  }
-}
+  return {
+    type: AUTH_USER,
+    payload: "",
+  };
+};
